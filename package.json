@@ -12,5 +12,9 @@
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/group03_csci3100_2018/csci3100project#readme"
+  "homepage": "https://bitbucket.org/group03_csci3100_2018/csci3100project#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongoose": "^5.0.10"
+  }
 }
