@@ -1,0 +1,16 @@
+{
+  "name": "csci3100project",
+  "version": "1.0.0",
+  "description": "initial_code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://peteryeung1456@bitbucket.org/group03_csci3100_2018/csci3100project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/group03_csci3100_2018/csci3100project#readme"
+}
