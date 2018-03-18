@@ -6,11 +6,11 @@
     <title>Register Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+    <script src="jquery.js"></script>
 </head>
 <body>
-    <form action="">
-        Login Name: <br>
+    <form action = "/register" method = "POST">
+        Username: <br>
         <input type = "text" name = "loginName"> <br>
         Password: <br>
         <input type = "password" name = "pwd"> <br>
@@ -19,11 +19,52 @@
         Last Name: <br>
         <input type = "text" name = "lastName"> <br>
         Register as: <br>
-        <input type="radio" name="identity" value="student"> student
-        <input type="radio" name="identity" value="tutor"> tutor <br>
+        <input type="radio" name="identity" value="student"> Student
+        <input type="radio" name="identity" value="tutor"> Tutor <br>
         Sex: <br>
         <input type="radio" name="sex" value="male"> Male
-        <input type="radio" name="sex" value="female"> Female
+        <input type="radio" name="sex" value="female"> Female <br>
+        Region: <br>
+        <select name = "region">
+            <option value = "Central and Western"> Central and Western </option>
+            <option value = "Eastern"> Eastern </option>
+            <option value = "Southern"> Southern </option>
+            <option value = "Sham Shui Po"> Sham Shui Po </option>
+            <option value = "Kowloon City"> Kownloon City </option>
+            <option value = "Kwun Tong"> Kwun Tong </option>
+            <option value = "Wong Tai Sin"> Wong Tai Sin </option>
+            <option value = "Yau Tsim Mong"> Yau Tsim Mong </option>
+            <option value = "Islands"> Islands </option>
+            <option value = "Kwai Tsing"> Kwai Tsing </option>
+            <option value = "North"> North </option>
+            <option value = "Sai Kung"> Sai Kung </option>
+            <option value = "Sha Tin"> Sha Tin </option>
+            <option value = "Tai Po"> Tai Po </option>
+            <option value = "Tsuen Wan"> Tsuen Wan </option>
+            <option value = "Tuen Mun"> Tuen Mun </option>
+            <option value = "Yuen Long"> Yuen Long </option>
+        </select> <br>
+        Education Level: <br>
+        <select name = "educationLevel">
+            <option value> </option>
+        </select> <br>
+        Time Available: <br>
+        <input type="checkbox" name="timeAvailable" value="sunday"> Sunday <br>
+        <input type="checkbox" name="timeAvailable" value="monday"> Monday <br>
+        <input type="checkbox" name="timeAvailable" value="tuesday"> Tuesday <br>
+        <input type="checkbox" name="timeAvailable" value="wednesday"> Wednesday <br>
+        <input type="checkbox" name="timeAvailable" value="thursday"> Thursday <br>
+        <input type="checkbox" name="timeAvailable" value="friday"> Friday <br>
+        <input type="checkbox" name="timeAvailable" value="saturday"> Saturday <br>
+        Minimum Hourly Price Requested: <br>
+        <input type="range" name="minPrice" min=0 max=1000 step=10 id = "priceSlider">
+        <span id="price"></span>
     </form>
 </body>
+<script>
+    // Display the value of slider 
+    $("#priceSlider").on("change", function(){
+        $("#price").html($("#priceSlider").val());
+    })
+</script>
 </html>
