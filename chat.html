@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Socket.io</title>
+    </head>
+ 
+    <body>
+    	<div class="container">
+    		<div class="row">
+    			<div class="col-md-6 offset-md-3 col-sm-12">
+    				
+    				<h1 class="text-center">
+
+    					Chatroom
+    					<button id = "clear" class="btn btn-danger">Clear</button>
+
+    				</h1>
+
+    				<div id="status">
+                        
+                    </div>
+
+    				<div id = "chat">
+    					
+
+                        <br>
+    					<div class="card">
+    						<div id="messages" class="card-block">
+    							
+
+    						</div>
+
+    					</div>
+    					<br>
+    					<textarea id="" class="form-control" placeholder="Enter messages...">
+    						
+
+    					</textarea>
+
+    				</div>
+
+
+    			</div>
+
+    		</div>
+    	</div>
+
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>	
+
+
+    	<script>
+    		(function(){
+    			// body...
+    			var element = function(id){
+
+    				return document.getElementById(id);
+    			}
+
+    			var status = element('status');
+    			var messages = element('messages');
+    			var textarea = element('textarea');
+    			var username = element('username');
+    			var clearBtn = element('clear');
+
+
+    			var statusDefault = status.textContent;
+
+    			var setStatus = function(s){
+
+    				status.textContent = s;
+
+    				id(s !== statusDefault){
+
+    					var delay = setTimeout(function(){
+
+    						setStatus(statusDefault);
+    					},4000);
+    				}
+    			}
+
+
+    			var socket = io.connect('http://127.0.0.1:4000');
+
+    			if(socket !== undefined){
+
+    				console.log('connected to socket');
+
+                    socket.on('output',function(data){
+
+                        console.log(data);
+
+                        if(data.length){
+
+                            for(var x =0; x< data.length;x++){
+
+                                var message = document.createElement('div');
+                                message.setAttribute('class','chat-message');
+                                message.textContent = data[x].name+ ": " + data[x].message;
+                                messages.appendChild(message);
+                                messages.insertChlid(message, messages.firstChild);
+                            }
+                        }
+                    });
+
+
+                    socket.on('status',function(data){
+
+                        setStatus((typeof data === 'object')? data.message: data);
+
+                        if(data.clear){
+
+                            textarea.value = '';
+                        }
+                    });
+
+
+                    textarea.addEventListener('keydown', fuction(event){
+
+                        if(event.which === 13 && event.shiftKey == false){
+
+                            socket.emit('input', {
+
+                                name:username.value,
+                                message:textarea.value
+                            });
+
+                            event.preventDefault();
+                        }
+                    })
+
+    			}
+
+
+    		})();
+
+    	</script>
+
+    </body>
+</html>

@@ -20,7 +20,7 @@ module.exports = function (app,passport){
     app.get('/register', (req, res) => {res.sendFile('register.html')});
 
     // search page 
-    app.get('/search', isLoggedIn, (req, res) => {res.sendFile('register.html')});
+    app.get('/search', isLoggedIn, (req, res) => {res.sendFile('search.html')});
 
     // handling post requests
     // register
