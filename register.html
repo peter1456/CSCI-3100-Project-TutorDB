@@ -11,9 +11,9 @@
 <body>
     <form action = "/register" method = "POST">
         Username: <br>
-        <input type = "text" name = "loginName"> <br>
+        <input type = "text" name = "username"> <br>
         Password: <br>
-        <input type = "password" name = "pwd"> <br>
+        <input type = "password" name = "password"> <br>
         First Name: <br>
         <input type = "text" name = "firstName"> <br>
         Last Name: <br>
@@ -63,6 +63,8 @@
     </form>
 </body>
 <script>
+    var valid = false;
+
     // Display the value of slider 
     $("#priceSlider").on("change", function(){
         $("#price").html($("#priceSlider").val());
