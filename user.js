@@ -13,6 +13,7 @@ var userSchema = mongoose.Schema({
     educationLevel: String,
     timeAvailable: [String],
     priceRequested: Number,
+    subject: [String],
     activeness: {type: Boolean, default: true},
     rating: {type: Number, default: null},
 })

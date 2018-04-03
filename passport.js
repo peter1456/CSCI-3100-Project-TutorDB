@@ -11,7 +11,8 @@ module.exports = function(passport) {
     })
     passport.deserializeUser(function(id, done) {
         User.findById(id, function(err, user) {
-            done(err, user);
+            console.log(user);
+            done(null, user);
         });
     });
 
@@ -40,7 +41,8 @@ module.exports = function(passport) {
                         newUser.region = req.body.region;
                         newUser.educationLevel = req.body.educationLevel;
                         newUser.timeAvailable = req.body.timeAvailable;
-                        newUser.minPrice = req.body.minPrice;
+                        newUser.priceRequested = req.body.priceRequested;
+                        newUser.subject = req.body.subject;
                         console.log("New User Created!");
                         console.log(newUser);
                         newUser.save(function(err,newUser){
@@ -61,6 +63,7 @@ module.exports = function(passport) {
     },
     function(req, username, password, done){
         console.log("logging in");
+        console.log(req.body);
         User.findOne({'username': username}, function(err,user){
             if(err){
                 console.log("error");

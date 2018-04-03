@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+
+body{
+    background-image: url("b2.jpg");
+    background-color: #cccccc;
+    background-repeat: repeat;
+    background-size: auto;
+  }
+
+input[type=text], select, textarea {
+    width: 80%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+label {
+    padding: 15px 15px 15px 0;
+    display: inline-block;
+}
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left" style="display:none" id="Menu">
+     <button onclick="closeMenu()" class="w3-bar-item w3-button w3-large">&times;</button> 
+     <a  href = "/" class="w3-bar-item w3-button w3-black "> <i>Home Page</i></a>
+     <a  href = "/personal" class="w3-bar-item w3-button w3-black "> <i>Personal Page</i></a>
+    <a  href = "/update" class="w3-bar-item w3-button w3-black "><i> Update</i> </a>
+    <a  href = "/chat" class="w3-bar-item w3-button w3-black "><i> Chat Room</i> </a>
+    <a  href = "/search" class="w3-bar-item w3-button w3-black "><i> Search </i></a>
+    <a  href = "/contactus" class="w3-bar-item w3-button w3-black "><i> Contact Us</i></a>
+  </div>
+
+  <div id="main">
+
+<div class="w3-black">
+  <button id="openNav" class="w3-button w3-black w3-xlarge w3-left" onclick="openMenu()">&#9776;</button>
+    <a  href = "/logout" class="w3-bar-item w3-button w3-black w3-round-large" style = "float: right"> <i>Logout</i></a>
+  <div class="w3-container">
+    <h1><i>Search for <%= identity == "student" ? "tutor" : "student" %>!!<i></h1>
+    <div class="w3-container w3-center">
+  <div class="w3-bar">
+ <a  href = "/" class="w3-bar-item w3-button w3-black w3-round-large"> <i>Home Page</i></a>
+     <a  href = "/personal" class="w3-bar-item w3-button w3-black w3-round-large"> <i>Personal Page</i></a>
+   <a  href = "/update" class="w3-bar-item w3-button w3-black w3-round-large"><i> Update</i> </a>
+   <a  href = "/chat" class="w3-bar-item w3-button w3-black w3-round-large"><i> Chat Room</i> </a>
+   <a  href = "/search" class="w3-bar-item w3-button w3-black w3-round-large"><i> Search </i></a>
+   <a  href = "/contactus" class="w3-bar-item w3-button w3-black w3-round-large"><i> Contact Us</i></a>
+  </div>
+  </div>
+  </div>
+</div>
+
+
+<form action="/search" method="POST" class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
+
+  <div class="row">
+      <div class="col-25">
+        <label for="sex">Sex:</label>
+        </div>
+      <div class="col-75">
+        <select id="Sex" name= "sex">
+          <option value = 'null'>Select Sex</option>
+          <option value = "male">M</option>
+          <option value = "female">F</option>
+        </select>
+      </div>
+  </div>
+
+ <div class="row">
+      <div class="col-25">
+        <label for="subject">Subject:</label>
+        </div>
+        <div class="col-75">
+          <select id="Subject" name ="subject" >
+            <option value = "null">Select Subject</option>
+            <option value = "Chinese">Chinese</option>
+            <option value = "English">English</option>
+            <option value = "Maths">Maths</option>
+            <option value = "LS">LS</option>
+            <option value = "Physics">Physics</option>
+            <option value = "Chemistry">Chemistry</option>
+            <option value = "Biology">Biology</option>
+            <option value = "Chinese History">Chinese History</option>
+            <option value = "History">History</option>
+            <option value = "Economy">Economy</option>
+            <option value = "BAFS">BAFS</option>
+          
+          </select>
+          </div>
+  </div>
+
+
+<div class="row">
+      <div class="col-25">
+        <label for="el">Education level:</label>
+      </div>
+      <div class="col-75">
+
+        <select id="Education" name = "educationLevel">
+          <option value = 'null'>Select Education level</option>
+          <% if (identity == "student") { %> 
+          <option value = "Secondary School or above">Secondary School or above</option>
+          <option value = "University or above">University or above</option>
+          <option value = "PHD or above">PHD or above</option>
+          <% } else { %> 
+          <option id = "o1" value = "Primary1" >Primary1 </option>
+          <option id = "o2" value = "Primary2" >Primary2 </option>
+          <option id = "o3" value = "Primary3" >Primary3 </option>
+          <option id = "o4" value = "Primary4" >Primary4 </option>
+          <option id = "o5" value = "Primary5" >Primary5 </option>
+          <option id = "o6" value = "Primary6" >Primary6 </option>
+          <option id = "o7" value = "Form1" >Form1 </option>
+          <option id = "o8" value = "Form2" >Form2 </option>            
+          <option id = "o9" value = "Form3" >Form3 </option>
+          <option id = "o10" value = "Form4" >Form4 </option>
+          <option id = "o11" value = "Form5" >Form5 </option>
+          <option id = "o12" value = "Form6" >Form6 </option>
+          <% } %> 
+        </select>
+         </div>
+  </div>
+
+
+<div class="row">
+      <div class="col-25">
+        <label for="region">Region:</label>
+      </div>
+      <div class="col-75">
+
+        <select id="Region" name = "region">
+          <option value = 'null'>Select Region</option>
+            <option value = "Central and Western"> Central and Western </option>
+            <option value = "Eastern"> Eastern </option>
+            <option value = "Southern"> Southern </option>
+            <option value = "Sham Shui Po"> Sham Shui Po </option>
+            <option value = "Kowloon City"> Kownloon City </option>
+            <option value = "Kwun Tong"> Kwun Tong </option>
+            <option value = "Wong Tai Sin"> Wong Tai Sin </option>
+            <option value = "Yau Tsim Mong"> Yau Tsim Mong </option>
+            <option value = "Islands"> Islands </option>
+            <option value = "Kwai Tsing"> Kwai Tsing </option>
+            <option value = "North"> North </option>
+            <option value = "Sai Kung"> Sai Kung </option>
+            <option value = "Sha Tin"> Sha Tin </option>
+            <option value = "Tai Po"> Tai Po </option>
+            <option value = "Tsuen Wan"> Tsuen Wan </option>
+            <option value = "Tuen Mun"> Tuen Mun </option>
+            <option value = "Yuen Long"> Yuen Long </option>
+        
+        </select>
+       </div>
+  </div>  
+
+<div class="row">
+      <div class="col-25">
+        <label for="ad">Avalible Day:</label>
+      </div>
+      <div class="col-75">
+
+      <select id="Day" name = "timeAvailable">
+        <option value = 'null'>Select Day</option>
+        <option value = "sunday">Sunday</option>
+        <option value = "monday">Monday</option>
+        <option value = "tuesday">Tuesday</option>
+        <option value = "wednesday">Wednesday</option>
+        <option value = "thursday">Thursday</option>
+        <option value = "friday">Friday</option>
+        <option value = "saturday">Saturday</option>
+
+      
+      </select>
+
+      </div>
+  </div>  
+
+
+<p>Click the button to Search.</p>
+
+<button class="w3-bar-item w3-button w3-blue w3-round-large" type="submit">Search</button>
+
+<p id="demo"></p>
+
+</form>
+<script>
+function openMenu() {
+  document.getElementById("main").style.marginLeft = "15%";
+  document.getElementById("Menu").style.width = "15%";
+  document.getElementById("Menu").style.display = "block";
+  document.getElementById("openNav").style.display = 'none';
+}
+function closeMenu() {
+    document.getElementById("main").style.marginLeft = "0%";
+  document.getElementById("Menu").style.display = "none";
+  document.getElementById("openNav").style.display = "inline-block";
+}
+</script>
+<script src="https://www.w3schools.com/lib/w3codecolor.js"></script>
+<script>
+w3CodeColor();
+
+</script>
+
+</body>
+</html>

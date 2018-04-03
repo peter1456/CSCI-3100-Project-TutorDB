@@ -1,17 +1,21 @@
 <html>
 <head>
-<title>Personal Page</title>
- 	<meta charset="utf-8" />
+	 <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Register Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+    <% if (user.identity == "student") { %>
+        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-green.css"> 
+    <% } else { %>
+        <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+    <% } %>
     <script src="main.js"></script>
-</head>
-<body>
+<title>Personal Page</title>
+
+
 <style>
 
 body{
@@ -29,7 +33,6 @@ body{
 
 <div class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left" style="display:none" id="Menu">
       <button onclick="closeMenu()" class="w3-bar-item w3-button w3-large">&times;</button> 
-      <a  href = "/loginhomepage" class="w3-bar-item w3-button w3-black "> <i>Home Page</i></a>
       <a  href = "/personal" class="w3-bar-item w3-button w3-black "> <i>Personal Page</i></a>
     <a  href = "/update" class="w3-bar-item w3-button w3-black "><i> Update</i> </a>
     <a  href = "/chat" class="w3-bar-item w3-button w3-black "><i> Chat Room</i> </a>
@@ -41,12 +44,12 @@ body{
 
 <div class="w3-black">
   <button id="openNav" class="w3-button w3-black w3-xlarge w3-left" onclick="openMenu()">&#9776;</button>
-      <a  href = "/logout" class="w3-bar-item w3-button w3-black w3-round-large" style = "float: right"> <i>Logout</i></a>
+  <a  href = "/logout" class="w3-bar-item w3-button w3-black w3-round-large" style = "float: right"> <i>Logout</i></a>
   <div class="w3-container">
     <h1><i>Personal Page<i></h1>
-    <div class="w3-container w3-center"">
+    <div class="w3-container w3-center">
   <div class="w3-bar">
-<a  href = "/loginhomepage" class="w3-bar-item w3-button w3-black w3-round-large"> <i>Home Page</i></a>
+    <a  href = "/" class="w3-bar-item w3-button w3-black "> <i>Home Page</i></a>
      <a  href = "/personal" class="w3-bar-item w3-button w3-black w3-round-large"> <i>Personal Page</i></a>
    <a  href = "/update" class="w3-bar-item w3-button w3-black w3-round-large"><i> Update</i> </a>
    <a  href = "/chat" class="w3-bar-item w3-button w3-black w3-round-large"><i> Chat Room</i> </a>
@@ -59,59 +62,68 @@ body{
 
 
 	<!--Get information from database-->
-<form action="/action_page.php" class="w3-container w3-card-4 w3-theme-l5 (w3-theme-light) w3-text-blue w3-margin w3-padding-16">
+<form action="/action_page.php" class="w3-container w3-card-4 w3-theme-l3 w3-text-blue w3-margin w3-padding-16">
 
  		<h1 class="w3-center">Information</h1>
 
 
 
-    <div class="w3-container w3-theme-l3" >
-  		<h2 style="text-shadow:1px 1px 0 #444">Name:</h2>
+    <div class="w3-container w3-theme-l1" >
+  		<h2 style="text-shadow:1px 1px 0 #444">Name: <%= user.firstName %> <%= user.lastName %></h2>
 	</div>
 
-	<div class="w3-container w3-theme-l2">
-  		<h2 style="text-shadow:1px 1px 0 #444">Sex: </h2>
+	<div class="w3-container w3-theme">
+  		<h2 style="text-shadow:1px 1px 0 #444">Sex: <%= user.sex %></h2>
 	</div>
 
 	<div class="w3-container">
   <div class="w3-display-container w3-hover-opacity" style="width:50%">
-    <h2 style="text-shadow:1px 1px 0 #444">Identiy: </h2>
+    <h2 style="text-shadow:1px 1px 0 #444">Identity: </h2>
+    <% if (user.identity == "student") { %>
+    <img src="student.png" alt="Avatar" style="width:20%">
+    <div class="w3-display-left w3-display-hover ">
+      <button class="w3-button w3-black">Student</button>
+    </div>
+    <% } else { %>
     <img src="tutor.png" alt="Avatar" style="width:20%">
     <div class="w3-display-left w3-display-hover ">
       <button class="w3-button w3-black">Tutor</button>
     </div>
+    <% } %>
   </div>
 </div>
 
-	<div class="w3-container w3-theme-l1">
-  		<h2 style="text-shadow:1px 1px 0 #444">Region:</h2>
-	</div>
-
-	<div class="w3-container w3-theme">
-  		<h2 style="text-shadow:1px 1px 0 #444">Time available:</h2>
-	</div>
-
 	<div class="w3-container w3-theme-d1">
-  		<h2 style="text-shadow:1px 1px 0 #444">Subject:</h2>
+  		<h2 style="text-shadow:1px 1px 0 #444">Region: <%= user.region[0] %></h2>
 	</div>
 
 	<div class="w3-container w3-theme-d2">
-  		<h2 style="text-shadow:1px 1px 0 #444">Education level:</h2>
+  		<h2 style="text-shadow:1px 1px 0 #444">Time available:  
+            <% for (var i = 0; i < user.timeAvailable.length; i++) { %>
+                <%= i != 0 ? ", " : "" %><%= user.timeAvailable[i] %>
+            <% } %>
+        </h2>
 	</div>
 
 	<div class="w3-container w3-theme-d3">
-  		<h2 style="text-shadow:1px 1px 0 #444">Expected price:</h2>
+  		<h2 style="text-shadow:1px 1px 0 #444">Subject:
+            <% for (var i = 0; i < user.subject.length; i++) { %>
+                <%= i != 0 ? ", " : "" %><%= user.subject[i] %>
+            <% } %>
+        </h2>
 	</div>
 
 	<div class="w3-container w3-theme-d4">
-  		<h2 style="text-shadow:1px 1px 0 #444">Rating:</h2>
+  		<h2 style="text-shadow:1px 1px 0 #444">Education level: <%= user.educationLevel %></h2>
 	</div>
 
 	<div class="w3-container w3-theme-d5">
-  		<h2 style="text-shadow:1px 1px 0 #444">Expected price:</h2>
+  		<h2 style="text-shadow:1px 1px 0 #444">Expected price: <%= user.priceRequested %></h2>
 	</div>
 
+
 </form>
+
 
 <script>
 function openMenu() {

@@ -6,26 +6,144 @@
     <title>Register Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="jquery.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <style>
+        body{background: url(b2.jpg);
+             background-color: #cccccc;
+            background-attachment: fixed;
+            overflow: hidden;
+            overflow-y:scroll;
+            overflow-x:scroll;
+            }
+
+
+    h1{ margin-left: auto; 
+    text-align:center;
+ color:white;
+ font-size: 50px;
+    text-shadow: 4px 4px black;
+ font-style: italic;
+    font-variant: small-caps;
+ font-family: 'Open Sans';}
+
+ input[type=text], select, textarea, input[type=password] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    resize: vertical;
+}
+
+input[type=submit]{
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    resize: vertical;
+    margin: auto;
+
+}
+
+label {
+    padding: 15px 15px 15px 0;
+    display: inline-block;
+}
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 10px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+    </style>
 </head>
 <body>
-    <form action = "/register" method = "POST">
-        Username: <br>
-        <input type = "text" name = "username"> <br>
-        Password: <br>
-        <input type = "password" name = "password"> <br>
-        First Name: <br>
-        <input type = "text" name = "firstName"> <br>
-        Last Name: <br>
-        <input type = "text" name = "lastName"> <br>
-        Register as: <br>
-        <input type="radio" name="identity" value="student"> Student
-        <input type="radio" name="identity" value="tutor"> Tutor <br>
-        Sex: <br>
-        <input type="radio" name="sex" value="male"> Male
-        <input type="radio" name="sex" value="female"> Female <br>
-        Region: <br>
-        <select name = "region">
+     
+    <header class="w3-container w3-animate-opacity">
+        <h1>Register</h1>
+    </header>
+
+    <form action = "/register" method = "POST" class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
+
+
+
+    <div class="row">
+      <div class="col-25">
+        <label for="username"> Username:</label>
+        </div>
+      <div class="col-75">
+        <input required id="input1" type = "text" name = "username"> 
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-25">
+        <label for="password"> Password:</label>
+        </div>
+      <div class="col-75">
+        <input id="input1" type = "password" name = "password"> 
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-25">
+        <label for="firstName"> First Name:</label>
+        </div>
+      <div class="col-75">
+        <input required id="input1" type = "text" name = "firstName"> 
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-25">
+        <label for="lastName"> Last Name:</label>
+        </div>
+      <div class="col-75">
+        <input required id="input1" type = "text" name = "lastName"> 
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-25">
+        <label for="register"> Register as:</label>
+        </div>
+      <div class="col-75">
+         <input required id="input5" type="radio"  name="identity" value="student" class="w3-radio"> Student &#8194 &#8194
+        <input id="input6" type="radio" name="identity" value="tutor" class="w3-radio"> Tutor &#8194 &#8194
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-25">
+        <label for="sex">Sex:</label>
+        </div>
+      <div class="col-75">
+            <input required id="input1" type="radio" name="sex" value="male" class="w3-radio"> Male &#8194 &#8194
+        <input id="input2" type="radio" name="sex" value="female" class="w3-radio"> Female &#8194 &#8194
+      </div>
+    </div>
+
+ 
+
+    <div class="row">
+      <div class="col-25">
+        <label for="region">Region:</label>
+        </div>
+        <div class="col-75">
+        <select required name = "region">
             <option value = "Central and Western"> Central and Western </option>
             <option value = "Eastern"> Eastern </option>
             <option value = "Southern"> Southern </option>
@@ -43,31 +161,107 @@
             <option value = "Tsuen Wan"> Tsuen Wan </option>
             <option value = "Tuen Mun"> Tuen Mun </option>
             <option value = "Yuen Long"> Yuen Long </option>
-        </select> <br>
-        Education Level: <br>
-        <select name = "educationLevel">
-            <option value> </option>
-        </select> <br>
-        Time Available: <br>
-        <input type="checkbox" name="timeAvailable" value="sunday"> Sunday <br>
-        <input type="checkbox" name="timeAvailable" value="monday"> Monday <br>
-        <input type="checkbox" name="timeAvailable" value="tuesday"> Tuesday <br>
-        <input type="checkbox" name="timeAvailable" value="wednesday"> Wednesday <br>
-        <input type="checkbox" name="timeAvailable" value="thursday"> Thursday <br>
-        <input type="checkbox" name="timeAvailable" value="friday"> Friday <br>
-        <input type="checkbox" name="timeAvailable" value="saturday"> Saturday <br>
-        Minimum Hourly Price Requested: <br>
-        <input type="range" name="minPrice" min=0 max=1000 step=10 id = "priceSlider">
-        <span id="price"></span> <br>
-        <input type="submit" value="Rgegister">
+        </select> 
+        </div>
+  </div>
+
+        <div class="row">
+      <div class="col-25">
+        <label for="el">Education Level:</label>
+        </div>
+        <div class="col-75">
+        <select required id = "option1" name = "educationLevel" style="display: none">                     
+        </select>
+        </div>
+  </div>
+
+
+        <div class="row">
+        <div class="col-25">
+        <label for="subject">Subject: </label>
+        </div>
+        <div class="col-75">
+        <input id="input1" type="checkbox" name="subject" value="Chinese" class="w3-check"> Chinese &#8194 &#8194
+        <input id="input1" type="checkbox" name="subject" value="English" class="w3-check"> English &#8194 &#8194
+        <input id="input1" type="checkbox" name="subject" value="Maths" class="w3-check"> Maths &#8194 &#8194
+        <input id="input1" type="checkbox" name="subject" value="LS" class="w3-check"> LS <br>
+        <input id="input1" type="checkbox" name="subject" value="Physics" class="w3-check"> Physics &#8194 &#8194
+        <input id="input1" type="checkbox" name="subject" value="Chemistry" class="w3-check"> Chemistry &#8194 &#8194
+        <input id="input1" type="checkbox" name="subject" value="Biology" class="w3-check"> Biology <br>
+        <input id="input1" type="checkbox" name="subject" value="Chinese History" class="w3-check"> Chinese History &#8194 &#8194
+        <input id="input1" type="checkbox" name="subject" value="History" class="w3-check"> History &#8194 &#8194
+        <input id="input1" type="checkbox" name="subject" value="Economy" class="w3-check"> Economy &#8194 &#8194
+        <input id="input1" type="checkbox" name="subject" value="BAFS" class="w3-check"> BAFS 
+        </div>
+  </div>
+
+        <br>
+
+         <div class="row">
+        <div class="col-25">
+        <label for="subject">Time Available:</label>
+        </div>
+        <div class="col-75">
+        <input id="input1" type="checkbox" name="timeAvailable" value="sunday" class="w3-check"> Sunday &#8194 &#8194
+        <input id="input1" type="checkbox" name="timeAvailable" value="monday" class="w3-check"> Monday &#8194 &#8194
+        <input id="input1" type="checkbox" name="timeAvailable" value="tuesday" class="w3-check"> Tuesday &#8194 &#8194
+        <input id="input1" type="checkbox" name="timeAvailable" value="wednesday" class="w3-check"class="w3-check"> Wednesday <br>
+        <input id="input1" type="checkbox" name="timeAvailable" value="thursday" class="w3-check"> Thursday &#8194 &#8194
+        <input id="input1" type="checkbox" name="timeAvailable" value="friday" class="w3-check"> Friday &#8194 &#8194
+        <input id="input1" type="checkbox" name="timeAvailable" value="saturday" class="w3-check"> Saturday &#8194 &#8194
+        </div>
+  </div>
+
+        <div class="row">
+        <div class="col-25">
+        <label for="subject"><span id ="minmax">Minimum </span>Hourly Price Requested: </label>
+        </div>
+        <div class="col-75">
+        <input type="range" name="priceRequested" min=0 max=1000 step=10 id = "priceSlider">
+        <span  id="price">500</span> 
+                </div>
+    </div>
+
+        <input id="input3" type="submit" value="Register" class="w3-btn w3-border w3-blue w3-round-large">
+
+
     </form>
+
 </body>
 <script>
-    var valid = false;
 
+$('priceSlider').val(500); // setting initial value 
+
+$( "#input5" ).on( "click", function() {
+  $('#option1').css('display','block');
+  $('#option1').html(
+            "<option id = 'o' value = '' ></option>" + 
+            "<option id = 'o1' value = 'Primary1' >Primary1 </option>" +
+            "<option id = 'o2' value = 'Primary2' >Primary2 </option>" + 
+            "<option id = 'o3' value = 'Primary3' >Primary3 </option>" +
+            "<option id = 'o4' value = 'Primary4' >Primary4 </option>" +
+            "<option id = 'o5' value = 'Primary5' >Primary5 </option>" +
+            "<option id = 'o6' value = 'Primary6' >Primary6 </option>" +
+            "<option id = 'o7' value = 'Form1' >Form1 </option>" +
+            "<option id = 'o8' value = 'Form2' >Form2 </option>" +          
+            "<option id = 'o9' value = 'Form3' >Form3 </option>" +
+            "<option id = 'o10' value = 'Form4' >Form4 </option>" +
+            "<option id = 'o11' value = 'Form5' >Form5 </option>" +
+            "<option id = 'o12' value = 'Form6' >Form6 </option>");
+  $('#minmax').html('Maximum ');
+});
+$( '#input6' ).on( "click", function() {
+  $('#option1').css('display','block');
+  $("#option1").html("<option></option><option value = 'Secondary School or above'>Secondary School or above</option>" +
+          "<option value = 'University or above'>University or above</option>" + 
+          "<option value = 'PHD or above'>PHD or above</option>");
+  $('#minmax').html('Minimum ');
+});
     // Display the value of slider 
+
     $("#priceSlider").on("change", function(){
         $("#price").html($("#priceSlider").val());
     })
+
 </script>
 </html>

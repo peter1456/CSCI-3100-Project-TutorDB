@@ -1,31 +1,33 @@
 var express = require('express');
 var app = express();
-
-var path = require('path');
 var morgan = require('morgan');
+
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/test');
-app.use(morgan('combined')); 
+mongoose.connect('mongodb://localhost/user');
+var User = require("./user");
+
+app.use(morgan('dev')); 
 app.use(bodyParser.urlencoded({
 	extended: true
   }));
 
-var kittySchema = mongoose.Schema({
-    name: String
+app.get('/', (req, res) => {
+  User.find({sex: "male"}, (err, info) => {
+    console.log("finding male");
+    console.log(info);
   });
-
-var Kitten = mongoose.model('Kitten', kittySchema);
-
-app.get('/', (req, res) => {res.sendFile(path.join(__dirname, 'register.html'))});
-app.post('/register', (req, res) => {
-    console.log(req.body);
-    var silence = new Kitten({ name: 'Silence' });
-    console.log(silence.name); // 'Silence'
-    silence.save();
-    res.redirect('/');
-})
+  User.find({timeAvai}, (err, info) => {
+    console.log("finding trans");
+    console.log(info);
+  });
+  User.find({username: "happy"}, (err, info) => {
+    console.log("finding happy");
+    console.log(info);
+  });
+  res.sendFile(__dirname + "/search.html")
+});
 
 app.listen(3000);
 console.log("listening on port 3000.");

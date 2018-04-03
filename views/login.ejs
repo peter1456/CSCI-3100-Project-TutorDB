@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>Login Page</title>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+
+body{
+	background: url(b2.jpg);
+  background-attachment: fixed;
+  overflow: hidden;}
+
+label{
+	font-size: 40px;
+	font-family: 'Open Sans';
+	color:	brown;
+	}
+
+input{padding:40px 30px;
+	color:brown;
+	}
+
+button{
+	padding:10px 20px;
+	border-radius: 8px;
+	background-color:#4682B4; 
+	color: white;
+	text-shadow: 4px 4px black;}
+
+h1{ margin-left: auto; 
+	text-align:center;
+ color:white;
+ font-size: 50px;
+	text-shadow: 4px 4px black;
+ font-style: italic;
+	font-variant: small-caps;
+ font-family: 'Open Sans';}
+
+	p{text-align:center; 
+		color: white;
+		font-size: 30px; 
+		font-style: italic;
+		font-variant: small-caps;
+		}
+
+</style>
+</head>
+<body>
+
+	<header class="w3-container w3-animate-opacity">
+  		<h1>Login Page</h1>
+	</header>
+
+	<form class="w3-container w3-card-4 w3-light-grey w3-margin" action = "/login" method="post">
+
+		<div class="w3-container w3-animate-opacity">
+			<p>
+  			<label>Username</label>
+  			<input class="w3-input" type="text" name="username"></p>
+  			<p>
+  			<label>Password</label>
+  			<input class="w3-input" type="password" name="password"></p>
+  			<p>
+			<button class="w3-btn w3-brown" type = "submit">Login</button>
+		</div>
+
+	</form>
+	<dr>
+
+	<div class="w3-container w3-center">
+	<div class="w3-bar">	
+	<p> <a href = "/register" class="w3-bar-item w3-button  w3-round-large"> Register </a></p>
+	</div>
+	</div>
+
+</body>
+
+
+</html>
