@@ -19,10 +19,11 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-green.css">
 
     <style type="text/css">
     	
-      body {
+body {
   padding-top: 0;
   color: #777;
  background: url(b2.jpg);
@@ -467,11 +468,37 @@ a:hover, a:active, a:focus {
             </div>
             </div>
 
+    
+   <div class="w3-green">
+
+      <div class="w3-sidebar w3-bar-block w3-card w3-animate-right w3-green" style="display:none;right:0;" id="rightMenu">
+      <button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large w3-theme-d1">Close &times;</button>
+
+      <form action = "/rate" method = "POST">
+      <input id="input5" type="radio"  name="rate" value="rate" class="w3-radio"> &#9733 <br>
+      <input id="input5" type="radio"  name="rate" value="rate" class="w3-radio"> &#9733 &#9733 <br>
+      <input id="input5" type="radio"  name="rate" value="rate" class="w3-radio"> &#9733 &#9733 &#9733 <br>
+      <input id="input5" type="radio"  name="rate" value="rate" class="w3-radio"> &#9733 &#9733 &#9733 &#9733 <br>
+      <input id="input5" type="radio"  name="rate" value="rate" class="w3-radio"> &#9733 &#9733 &#9733 &#9733 &#9733 <br>
+
+      <button type="submit" class="w3-bar-item w3-button w3-large w3-theme-d3">Submit</button>
+
+    </form>
+    </div>
+
+  </div>
+
+
+           
+
               <div class="chat-box bg-white">
               <div class="input-group">
                 <input class="form-control border no-shadow no-rounded" placeholder="Type your message here">
                 <span class="input-group-btn">
                   <button class="btn btn-success no-rounded" type="button">Send</button>
+                 <button class="btn btn-success no-rounded" type="button" disabled>Accept</button>
+                  <button class="btn btn-success no-rounded" type="button" onclick="openRightMenu()" disabled>Rate</button>
+                </span>
                 </span>
               </div><!-- /input-group --> 
             </div> 
@@ -512,5 +539,13 @@ function closeMenu() {
 w3CodeColor();
 </script>
 
+<script>
+function openRightMenu() {
+    document.getElementById("rightMenu").style.display = "block";
+}
+function closeRightMenu() {
+    document.getElementById("rightMenu").style.display = "none";
+}
+</script>
 </body>
 </html>

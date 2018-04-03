@@ -1,9 +1,18 @@
 // definition of routes
 module.exports = function (app,passport,User){
+    var ChatHandler = require(__dirname + "/chat.js");
+    var chatHandler = new ChatHandler();
     // homepage 
     app.get('/', (req, res) => {
         if(req.isAuthenticated()){
-            res.render('loginhomepage', {firstName: req.user.firstName, lastName: req.user.lastName});
+            var query = {identity: req.user.identity == "tutor" ? "student" : "tutor"};
+            User.find(query,(err, results) => {
+                if (err) {
+                    throw err;
+                }
+            console.log(results);
+            res.render('loginhomepage', {firstName: req.user.firstName, lastName: req.user.lastName, result: results});
+        })
         } else {
             res.render('homepage');
         }
@@ -50,14 +59,15 @@ module.exports = function (app,passport,User){
 
     // login
     app.post('/login', passport.authenticate('local-login', {
-        successRedirect: '/search',
+        successRedirect: '/personal',
         failureRedirect: '/login', 
     }));
 
-    // rate
-    app.post('/rate', 
-        // function to rate the tutor and update the tutor database, and disable the button
-    );
+    app.post('/personal', isLoggedIn, (req, res) => {
+        User.findById(req.body.id, (err, result) => {
+            res.render('personal', {user: result});
+        })
+    });
 
     // update
     app.post('/update', isLoggedIn, (req, res) => {
@@ -109,8 +119,10 @@ module.exports = function (app,passport,User){
         })
     });
 
+    // create chat 
     app.post('/chat', (req, res) => {
         console.log(req.body.id);
+        chatHandler.createConversation(req.user.id, req.body.id).then(res.redirect('/chat'));
     });
 }
 

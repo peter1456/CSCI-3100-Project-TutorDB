@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<title>TutorDB</title>
+<title>Home Page</title>
 <style>
 
 body{background: url(b2.jpg);
@@ -48,6 +48,7 @@ color:	#F5F5F5;
 
 	<div class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left" style="display:none" id="Menu">
   		<button onclick="closeMenu()" class="w3-bar-item w3-button w3-large">&times;</button>	
+      <a  href = "/" class="w3-bar-item w3-button w3-black "> <i>Home Page</i></a>
   		<a  href = "/personal" class="w3-bar-item w3-button w3-black "> <i>Personal Page</i></a>
 	 	<a  href = "/update" class="w3-bar-item w3-button w3-black "><i> Update</i> </a>
 	 	<a  href = "/chat" class="w3-bar-item w3-button w3-black "><i> Chat Room</i> </a>
@@ -59,13 +60,14 @@ color:	#F5F5F5;
 
 <div class="w3-black">
   <button id="openNav" class="w3-button w3-black w3-xlarge w3-left" onclick="openMenu()">&#9776;</button>
-  <a  href = "/logout" class="w3-bar-item w3-button w3-black w3-round-large" style = "float: right"> <i>Logout</i></a>
+    <a  href = "/logout" class="w3-bar-item w3-button w3-black w3-round-large" style = "float: right"> <i>Logout</i></a>
   <div class="w3-container">
     <h1><i>Home Page<i></h1>
-    	<i> Hi, <%= firstName %> <%= lastName %> <i>
-    <div class="w3-container w3-center">
+      <i>Hi, <%= firstName %> <%= lastName %><i>
+    <div class="w3-container w3-center"">
 	<div class="w3-bar">
 
+<a  href = "/" class="w3-bar-item w3-button w3-black w3-round-large"> <i>Home Page</i>
   	 <a  href = "/personal" class="w3-bar-item w3-button w3-black w3-round-large"> <i>Personal Page</i></a>
 	 <a  href = "/update" class="w3-bar-item w3-button w3-black w3-round-large"><i> Update</i> </a>
 	 <a  href = "/chat" class="w3-bar-item w3-button w3-black w3-round-large"><i> Chat Room</i> </a>
@@ -79,36 +81,44 @@ color:	#F5F5F5;
 	<br>
 
 	 
-	 <br>
-	 <div class="w3-container w3-center w3-animate-bottom ">	
 
-	 <div class="row">
-	 	<div class="column">
-			 <p id="p1"> Our tutors</p>
-			 <p id= "p1"> Tutors list</p>
-			 			 <p id= "p1"> Tutors list</p>
-			 			 			 <p id= "p1"> Tutors list</p>
-		 </div>
-		 <!--Turors list from database-->
-	
-	 	<div class="column">
-	 		<p id="p2"> Our students</p>
-	 		<p id="p2"> students lists</p>
-	 		<p id="p2"> students lists</p>
-	 		<p id="p2"> students lists</p>
-	 		<p id="p2"> students lists</p>
-	 		<p id="p2"> students lists</p>
-	 		<p id="p2"> students lists</p>
-	 		<p id="p2"> students lists</p>
-	 		<p id="p2"> students lists</p>
-	 		<p id="p2"> students lists</p>
-	 		
+    <div style="width: 99%; height:99%; overflow:auto;float: left;">
+      <table class="w3-table-all" >
+      	<thead>
+      <tr class="w3-green">  
+        <th>Name</th>
+        <th>Sex</th>
+        <th>Education level</th>
+        <th>Region</th>
+        <th>Avalible Day</th>
+        <th>Price Requested</th>
+        <th>Chat</th>
+      </tr>
+    </thead>
+    <% if (result.length == 0) { %>
+    <tr>
+       <td rowspan="7"> haha </td>
+     </tr>
+    <% } else { %>
+    <% for (var i = 0; i < result.length; i++) { %> 
+    <tr>
+      <td> <form action="/personal" method="POST"> <button type="submit" name="id" value="<%= result[i]._id %>" class="w3-bar-item w3-button w3-white w3-round-large"> <i><%= result[i].firstName %> <%= result[i].lastName %></i></button></form></td>
+      <td><%= result[i].sex %></td>
+      <td><%= result[i].educationLevel %></td>
+      <td><%= result[i].region[0] %></td> 
+      <td> 
+      <% for (var j = 0; j < result[i].timeAvailable.length; j++) { %> 
+         <%= j != 0 ? ", " : "" %><%= result[i].timeAvailable[j] %>
+      <% } %>
+      </td>
+      <td> $<%= result[i].priceRequested %> </td>
+      <td> <form action="/chat" method="POST"> <button type="submit" name="id" value="<%= result[i].id %>" class="w3-bar-item w3-button w3-white w3-round-large"><i>Chat</i></button></form></td>
+    <% } %>
+    <% } %>
+  </table>
+</div>
 
-	 	</div>
-	 </div>
 
-	</div>
-</div>	
  <!--Students list from database-->
 
 <script>

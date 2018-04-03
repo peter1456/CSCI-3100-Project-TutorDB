@@ -200,6 +200,17 @@ label {
 
         <br> 
         <div class="row">
+            <div class="col-25">
+            <label for="Activeness">Activeness:</label>
+        </div>
+        <div class="col-75">
+            <select required id = "option2" name = "activeness">
+                <option id = "o1" value = "true" <%= user.activeness ? "selected" : "" %> >Active </option>
+                <option id = "o2" value = "false" <%= user.activeness ? "" : "selected" %> >Non-active </option>
+            </select> 
+        </div>
+    </div>
+        <div class="row">
         <div class="col-25">
         <label for="subject"><%= user.identity == "tutor" ? "Minimum" : "Maximum" %> Hourly Price Requested: </label>
         </div>
@@ -230,6 +241,7 @@ $(document).ready(() => {
     <% } %>
     $('#priceSlider').val(<%= user.priceRequested %>);
     $('#price').html($('#priceSlider').val());
+
 });
     // Display the value of slider 
 

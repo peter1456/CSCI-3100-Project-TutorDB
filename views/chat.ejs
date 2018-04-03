@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--  This file has been downloaded from bootdey.com    @bootdey on twitter -->
+    <!--  All snippets are MIT license http://bootdey.com/license -->
+    <!-- 
+    	The codes are free, but we require linking to our web site.
+    	Why to Link?
+    	A true story: one girl didn't set a link and had no decent date for two years, and another guy set a link and got a top ranking in Google! 
+    	Where to Put the Link?
+    	home, about, credits... or in a good page that you want
+    	THANK YOU MY FRIEND!
+    -->
+    <title>Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style type="text/css">
+    	
+      body {
+  padding-top: 0;
+  color: #777;
+ background: url(b2.jpg);
+  font-family: 'Open Sans',sans-serif;
+
+}
+
+li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: MediumSeaGreen;
+    color: white;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.friend-list {
+  list-style: none;
+margin-left: -40px;
+}
+
+.friend-list li {
+  border-bottom: 1px solid #eee;
+}
+
+.friend-list li a img {
+  float: left;
+  width: 45px;
+  height: 45px;
+  margin-right: 0px;
+}
+
+ .friend-list li a {
+  position: relative;
+  display: block;
+  padding: 10px;
+  transition: all .2s ease;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  -o-transition: all .2s ease;
+}
+
+.friend-list li.active a {
+  background-color: #f1f5fc;
+}
+
+.friend-list li a .friend-name, 
+.friend-list li a .friend-name:hover {
+  color: #777;
+}
+
+.friend-list li a .last-message {
+  width: 65%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.friend-list li a .time {
+  position: absolute;
+  top: 10px;
+  right: 8px;
+}
+
+small, .small {
+  font-size: 85%;
+}
+
+.friend-list li a .chat-alert {
+  position: absolute;
+  right: 8px;
+  top: 27px;
+  font-size: 10px;
+  padding: 3px 5px;
+}
+
+.chat-message {
+  padding: 60px 20px 115px;
+}
+
+.chat {
+    list-style: none;
+    margin: 0;
+}
+
+.chat-message{
+    background: #f9f9f9;  
+}
+
+.chat li img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50em;
+  -moz-border-radius: 50em;
+  -webkit-border-radius: 50em;
+}
+
+img {
+  max-width: 100%;
+}
+
+.chat-body {
+  padding-bottom: 20px;
+}
+
+.chat li.left .chat-body {
+  margin-left: 70px;
+  background-color: #fff;
+}
+
+.chat li .chat-body {
+  position: relative;
+  font-size: 11px;
+  padding: 10px;
+  border: 1px solid #f1f5fc;
+  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  -moz-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+.chat li .chat-body .header {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #f1f5fc;
+}
+
+.chat li .chat-body p {
+  margin: 0;
+}
+
+.chat li.left .chat-body:before {
+  position: absolute;
+  top: 10px;
+  left: -8px;
+  display: inline-block;
+  background: #fff;
+  width: 16px;
+  height: 16px;
+  border-top: 1px solid #f1f5fc;
+  border-left: 1px solid #f1f5fc;
+  content: '';
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+}
+
+.chat li.right .chat-body:before {
+  position: absolute;
+  top: 10px;
+  right: -8px;
+  display: inline-block;
+  background: #fff;
+  width: 16px;
+  height: 16px;
+  border-top: 1px solid #f1f5fc;
+  border-right: 1px solid #f1f5fc;
+  content: '';
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+}
+
+.chat li {
+  margin: 15px 0;
+}
+
+.chat li.right .chat-body {
+  margin-right: 70px;
+  background-color: #fff;
+}
+
+.chat-box {
+  
+  bottom: 0;
+  right: 0;
+  padding: 15px;
+  border-top: 1px solid #eee;
+}
+
+.primary-font {
+  color: #3c8dbc;
+}
+
+a:hover, a:active, a:focus {
+  text-decoration: none;
+  outline: 0;
+}
+    </style>
+</head>
+<body>
+
+<div class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left" style="display:none" id="Menu">
+      <button onclick="closeMenu()" class="w3-bar-item w3-button w3-large">&times;</button> 
+       <a  href = "/" class="w3-bar-item w3-button w3-black "> <i>Home Page</i></a>    
+      <a  href = "/personal" class="w3-bar-item w3-button w3-black "> <i>Personal Page</i></a>
+    <a  href = "/update" class="w3-bar-item w3-button w3-black "><i> Update</i> </a>
+    <a  href = "/chat" class="w3-bar-item w3-button w3-black "><i> Chat Room</i> </a>
+    <a  href = "/search" class="w3-bar-item w3-button w3-black "><i> Search </i></a>
+    <a  href = "/contactus" class="w3-bar-item w3-button w3-black "><i> Contact Us</i></a>
+  </div>
+
+<div id="main">
+
+<div class="w3-black">
+  <button id="openNav" class="w3-button w3-black w3-xlarge w3-left" onclick="openMenu()">&#9776;</button>
+    <a  href = "/logout" class="w3-bar-item w3-button w3-black w3-round-large" style = "float: right"> <i>Logout</i></a>
+  <div class="w3-container">
+    <h1><i>Chatroom<i></h1>
+    <div class="w3-container w3-center">
+  <div class="w3-bar">
+<a  href = "/" class="w3-bar-item w3-button w3-black w3-round-large"> <i>Home Page</i></a>
+     <a  href = "/personal" class="w3-bar-item w3-button w3-black w3-round-large"> <i>Personal Page</i></a>
+   <a  href = "/update" class="w3-bar-item w3-button w3-black w3-round-large"><i> Update</i> </a>
+   <a  href = "/chat" class="w3-bar-item w3-button w3-black w3-round-large"><i> Chat Room</i> </a>
+   <a  href = "/search" class="w3-bar-item w3-button w3-black w3-round-large"><i> Search </i></a>
+   <a  href = "/contactus" class="w3-bar-item w3-button w3-black w3-round-large"><i> Contact Us</i></a>
+  </div>
+  </div>
+  </div>
+</div>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container bootstrap snippet">
+    <div class="row" >
+		<div class="col-md-4 bg-white " style="width: 50%; height:530px; overflow:auto;float: left;">
+            <div class=" row border-bottom padding-sm" style="height: 40px;">
+            	Member
+            </div>
+            
+            <!-- =============================================================== -->
+            <!-- member list -->
+            <ul class="friend-list">
+            </ul>
+		</div>
+        
+        <!--=========================================================-->
+        <!-- selected chat -->
+    <div class="chat">
+    	<div class="col-md-8 bg-white " style="width: 50%; height:530px; overflow:auto;float: right;">
+            <div class="chat-message" >
+                <ul id="chat-list" class="chat">                
+                </ul>
+              
+            </div>
+            </div>
+
+              <div class="w3-green">
+
+      <div class="w3-sidebar w3-bar-block w3-card w3-animate-right w3-green" style="display:none;right:0;" id="rightMenu">
+      <button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large w3-theme-d1">Close &times;</button>
+
+      <input id="input5" type="radio"  name="rate" value="1" class="w3-radio"> &#9733 <br>
+      <input id="input5" type="radio"  name="rate" value="2" class="w3-radio"> &#9733 &#9733 <br>
+      <input id="input5" type="radio"  name="rate" value="3" class="w3-radio"> &#9733 &#9733 &#9733 <br>
+      <input id="input5" type="radio"  name="rate" value="4" class="w3-radio"> &#9733 &#9733 &#9733 &#9733 <br>
+      <input id="input5" type="radio"  name="rate" value="5" class="w3-radio"> &#9733 &#9733 &#9733 &#9733 &#9733 <br>
+
+      <button id="rate" class="w3-bar-item w3-button w3-large w3-theme-d3">Submit</button>
+
+    </form>
+    </div>
+
+  </div>
+
+              <div class="chat-box bg-white">
+              <div class="input-group">
+                <input id="message" class="form-control border no-shadow no-rounded" placeholder="Type your message here">
+                <span class="input-group-btn">
+                  <button id="send" class="btn btn-success no-rounded" type="button">Send</button>
+                  <button id="accept" class="btn btn-success no-rounded" type="button">Accept</button>
+                  <button id="rateMenu"class="btn btn-success no-rounded" type="button" onclick="openRightMenu()" >Rate</button>
+                </span>
+              </div><!-- /input-group --> 
+            </div> 
+          </div>
+		</div>        
+	</div>
+</div>
+
+</div>
+
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
+<script>
+var socket = io(); // connecting to server
+		var roomid; // recording which room (i.e. the conversation) the user is in
+    var userid;
+    var message;
+
+    $('#rate').on('click', () => {
+        closeRightMenu();
+        $('#rateMenu').prop('disabled', true);
+        socket.emit('rate', $('input[name="rate"]:checked').val());
+    });
+
+    $('#accept').on('click', () => {
+      $('#accept').prop('disabled', true);
+      socket.emit('accept');
+    });
+
+    $("#send").on('click', () => {
+      console.log('clicked');
+      if($('#message').val() != ''){
+          let message = {msgcontent: $("#message").val(), author: userid};
+          socket.emit('message', message);
+          $('#message').val('');
+      }
+    });
+
+    socket.on('getId', (id) => {
+      userid = id;
+      console.log("My ID is" + id);
+    })
+
+		socket.on('roomAssign', (id) => {
+      roomid = id;
+      console.log('The room is' + id);
+		});
+
+		socket.on('needUpdate', () => {
+			socket.emit('reqUpdate');
+		});
+
+		socket.on('newSummary', (Summary) => {
+			$(".friend-list").empty(); // clear the friend list
+			Summary.forEach((conv) => {
+        console.log(conv);
+        let rcvpos = (conv.participants[0]._id == userid) ? 1 : 0; 
+				if (conv.latestMessage.msgcontent != "" || conv.latestMessage.author == userid){
+          $(".friend-list").append(
+            '<li id="' + conv._id + '" ' + (roomid == conv._id ? ' class="active bounceInDown" ': '') + '>' + 
+                	'<a onclick = "changeroom(' + "'" + conv._id + "'" + ')" class="clearfix">' + 
+                		'<div class="friend-name">'	+
+                			'<strong>' + conv.participants[rcvpos].firstName + ' ' + conv.participants[rcvpos].lastName + '</strong>' +
+                		'</div>' + 
+                		'<div class="last-message text-muted">' + conv.latestMessage.msgcontent + '</div>' +
+                    '<small class="chat-alert text-muted"><i class="fa fa-' + (conv.latestMessage.author == userid ? "check" : "reply") +
+                      '"></i></small></a> </li>'
+          );
+        }
+			});
+    });
+    
+    socket.on('newConversation', (conv) => {
+      $("#chat-list").empty();
+      for (var i = 0; i < conv.length; i++) {
+        addMessage(conv[i]);
+      }
+    });
+
+		socket.on('message', (msg) => {
+			addMessage(msg);
+    });
+    
+    function addMessage(msg) {
+      if (msg.content != ''){
+      $("#chat-list").append(
+        '<li class="' + (msg.author._id == userid ? 'right' : 'left') +  ' clearfix">' + 
+                    	'<div class="chat-body clearfix">' + 
+                    		'<div class="header">' + 
+                    			'<strong class="primary-font">' + msg.author.firstName + ' ' +msg.author.lastName + '</strong>' +
+                    		'</div><p>' +
+                    			 msg.msgcontent + 
+                    		'</p>' +
+                    	'</div>' +
+        '</li>'                    
+      );
+      }
+    }
+
+    function changeroom(newroomid){
+      console.log('room change!');
+      if(newroomid != roomid) {
+        $('[id="'+roomid+'"]').removeClass("active BounceInDown");
+        $('[id="'+newroomid+'"]').addClass("active BounceInDown");
+        socket.emit('roomchange', newroomid);
+        roomid = newroomid;
+      }
+    }
+
+function openMenu() {
+  document.getElementById("main").style.marginLeft = "15%";
+  document.getElementById("Menu").style.width = "15%";
+  document.getElementById("Menu").style.display = "block";
+  document.getElementById("openNav").style.display = 'none';
+}
+function closeMenu() {
+    document.getElementById("main").style.marginLeft = "0%";
+  document.getElementById("Menu").style.display = "none";
+  document.getElementById("openNav").style.display = "inline-block";
+}
+function openRightMenu() {
+    document.getElementById("rightMenu").style.display = "block";
+}
+function closeRightMenu() {
+    document.getElementById("rightMenu").style.display = "none";
+}
+</script>
+<script src="https://www.w3schools.com/lib/w3codecolor.js"></script>
+<script>
+w3CodeColor();
+</script>
+
+</body>
+</html>

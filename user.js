@@ -16,6 +16,8 @@ var userSchema = mongoose.Schema({
     subject: [String],
     activeness: {type: Boolean, default: true},
     rating: {type: Number, default: null},
+    rating: {type: Number, default: 0},
+    numofjobs: {type:Number, default: 0}
 })
 
 var User = mongoose.model('User', userSchema);

@@ -7,7 +7,7 @@ var MessageSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
       },
-      content: {
+      msgcontent: {
         type: String,
         required: true
       },
