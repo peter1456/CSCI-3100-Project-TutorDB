@@ -72,6 +72,39 @@ class chatHandler{
         });
     }
 
+    acceptjob(roomid, userid){
+        Conversation.findByIdAndUpdate(roomid, {$push: {Accepted: userid}}, (err, conv) => {
+            if (err) throw err;
+        });
+    }
+
+    ratejob(convid, userid, rating) {
+        Conversation.findById(convid, (err, conv) => {
+            if (err) throw err;
+            tutorID = conv.participants[0] == userid ? conv.participants[1] : conv.participants[0];
+            User.findById(tutorID, (err, tutor) => {
+                if (err) throw err;
+                let update;
+                if (tutor.numofjobs == 0){
+                    update = {numofjobs: 1, rating: rating};
+                } else {
+                    update = {numofjobs: tutor.numofjobs + 1, rating: (tutor.rating + rating) / (tutor.numofjobs + 1)};
+                }
+                User.findByIdAndUpdate(tutor._id, update, (err, user) => {
+                    if (err) throw err;
+                    console.log(user);
+                    Conversation.findByIdAndUpdate(convid, {Rated: true}, (err) => {
+                        if (err) throw err;
+                    })
+                })
+            })
+        })
+    }
+
+    async getUserData(userid) {
+        return await User.findById(userid);
+    }
+
     async getotherid(convid, userid){
         try {
             var conv = await Conversation.findById(convid);

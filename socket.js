@@ -4,12 +4,11 @@
     var ChatHandler = require(__dirname + "/chat.js");
     io.on('connection', async function (socket) {
         if (socket.handshake.session.passport == undefined){
-            socket.disconnect(true); // disable connection when 
+            socket.disconnect(true); // disable connection when not logged in 
         } else {
             // when connected 
             userid = socket.handshake.session.passport.user;
-            console.log("The userid is" + userid);
-            console.log('User connected');
+            console.log('User with id ' + userid + ' connected');
             chatHandler = new ChatHandler();
             var Summary = await chatHandler.getLatest(userid);
             console.log('Summary get');
@@ -20,10 +19,11 @@
             console.log(conversation);
             socket.join(roomid); // join the room with latest message sent
             socket.join(userid); // this channel is for update notification
-            socket.emit('getId', userid);
-            socket.emit('roomAssign', roomid);
+            var userData = await chatHandler.getUserData(userid);
+            socket.emit('Init', {userid: userid, roomid: roomid, userData: userData});
             socket.emit('newSummary', Summary); // show it the latest summary
             socket.emit('newConversation', conversation); // show the messages stored in database
+            socket.emit('setButtons');
             
             // user sending messages
             socket.on('message', async (msg) => {
@@ -48,14 +48,18 @@
                 console.log("room change");
                 socket.leave(roomid);
                 roomid = newroomid;
-                socket.join(newroomid);
+                socket.join(roomid);
                 // show the messages stored in database
                 socket.emit('newConversation', await chatHandler.getConversation(roomid)); 
             })
 
             socket.on('accept', () => {
-                chatHandler.acceptjob(roomid, userid);
+                chatHandler.acceptjob(roomid, userid).then(io.to(roomid).emit('needUpdate'));
             });
+
+            socket.on('rate', (rating) => {
+                chatHandler.ratejob(roomid, userid).then(io.to(roomid).emit('needUpdate'));
+            })
 
             socket.on('disconnect', () => {
                 console.log("User with id" + userid + "disconnected");

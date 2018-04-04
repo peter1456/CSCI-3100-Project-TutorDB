@@ -120,6 +120,12 @@ body{
 	<div class="w3-container w3-theme-d5">
   		<h2 style="text-shadow:1px 1px 0 #444">Expected price: <%= user.priceRequested %></h2>
 	</div>
+  
+  <% if (user.identity == "tutor") { %>
+  	<div class="w3-container w3-theme-d6">
+  		<h2 style="text-shadow:1px 1px 0 #444">Rating: <%= user.rating == 0 ? "Not Available" : user.rating %></h2>
+	  </div>
+  <% } %> 
 
 
 </form>

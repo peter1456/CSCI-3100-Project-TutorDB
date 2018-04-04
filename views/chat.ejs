@@ -322,7 +322,9 @@ a:hover, a:active, a:focus {
 var socket = io(); // connecting to server
 		var roomid; // recording which room (i.e. the conversation) the user is in
     var userid;
+    var userData;
     var message;
+    var rooms;
 
     $('#rate').on('click', () => {
         closeRightMenu();
@@ -344,15 +346,11 @@ var socket = io(); // connecting to server
       }
     });
 
-    socket.on('getId', (id) => {
-      userid = id;
-      console.log("My ID is" + id);
+    socket.on('Init', (data) => {
+      userid = data.userid;
+      roomid = data.roomid;
+      userData = data.userData;
     })
-
-		socket.on('roomAssign', (id) => {
-      roomid = id;
-      console.log('The room is' + id);
-		});
 
 		socket.on('needUpdate', () => {
 			socket.emit('reqUpdate');
@@ -360,6 +358,7 @@ var socket = io(); // connecting to server
 
 		socket.on('newSummary', (Summary) => {
 			$(".friend-list").empty(); // clear the friend list
+      rooms = Summary;
 			Summary.forEach((conv) => {
         console.log(conv);
         let rcvpos = (conv.participants[0]._id == userid) ? 1 : 0; 
@@ -388,7 +387,29 @@ var socket = io(); // connecting to server
 		socket.on('message', (msg) => {
 			addMessage(msg);
     });
+
+    socket.on('setButtons' () => {
+      newConv = rooms.find((conv) => {return conv._id == roomid});
+        if (canRate(newConv)){
+          $('#rateMenu').prop('disabled', false);
+        } else {
+          $('#rateMenu').prop('disabled', true);
+        }
+        if (canAccept(newConv)){
+          $('#accept').prop('disabled', false);
+        } else {
+          $('#accept').prop('disabled', true);
+        }
+    })
     
+    function canRate(conv){
+      return (!conv.Rated && conv.Accepted.length == 2 && user.identity == "student") ? true : false;
+    }
+
+    function canAccept(conv){
+      return conv.Accepted.find((id) => {return id == userid}) == undefined ? true : false;
+    }
+
     function addMessage(msg) {
       if (msg.content != ''){
       $("#chat-list").append(
@@ -412,6 +433,17 @@ var socket = io(); // connecting to server
         $('[id="'+newroomid+'"]').addClass("active BounceInDown");
         socket.emit('roomchange', newroomid);
         roomid = newroomid;
+        newConv = rooms.find((conv) => {return conv._id == roomid});
+        if (canRate(newConv)){
+          $('#rateMenu').prop('disabled', false);
+        } else {
+          $('#rateMenu').prop('disabled', true);
+        }
+        if (canAccept(newConv)){
+          $('#accept').prop('disabled', false);
+        } else {
+          $('#accept').prop('disabled', true);
+        }
       }
     }
 
