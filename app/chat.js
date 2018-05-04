@@ -1,10 +1,11 @@
-// Chat Handler
+// Chat Handler to handle those database operations
 
 var Conversation = require('./conversation');
 var Message = require('./message');
 var User = require('./user');
 
 class chatHandler{
+    // get a list of current conversations sort by time of latest Message, with the latest Message
     async getLatest (userid) {
         try {
             return await Conversation.find({ participants: userid }).sort({"updatedAt": -1}).populate({path: 'participants latestMessage'});
@@ -13,6 +14,7 @@ class chatHandler{
         }
     };
     
+    // return a list of messages from a conversation, sorted by create time
     async getConversation(conversation){
         try {
             return await Message.find({conversationId: conversation})
@@ -26,7 +28,9 @@ class chatHandler{
     // make a new conversation from user 1 
     async createConversation(id1, id2){
         Conversation.findOne({"participants": [id1, id2]}, async (err, result) => {
+            // make a new conversation if it does not exist
             if (result == null) {
+                // create a new conversation in database and save it
                 var newConversation = new Conversation();
                 newConversation.participants = [id1, id2];
                 try {
@@ -46,6 +50,7 @@ class chatHandler{
                     throw err;
                 }
                 console.log(newMsg);
+                // record the dummy message as latestMessage
                 Conversation.findByIdAndUpdate(newConv._id, {latestMessage: newMsg._id}, (err, conv) => {
                     if (err) throw err;
                     console.log(conv);
@@ -66,12 +71,14 @@ class chatHandler{
                 throw err;
             } 
             console.log(msg);
+            // Update the latest message in the conversation
             Conversation.findByIdAndUpdate(convid, {latestMessage: msg._id}, (err, conv) => {
                 if (err) throw err;
             })
         });
     }
 
+    // accept the job 
     acceptjob(roomid, userid){
         Conversation.findByIdAndUpdate(roomid, {$push: {Accepted: userid}}, (err, conv) => {
             if (err) throw err;
@@ -81,7 +88,7 @@ class chatHandler{
     ratejob(convid, userid, rating) {
         Conversation.findById(convid, (err, conv) => {
             if (err) throw err;
-            tutorID = conv.participants[0] == userid ? conv.participants[1] : conv.participants[0];
+            var tutorID = conv.participants[0] == userid ? conv.participants[1] : conv.participants[0];
             User.findById(tutorID, (err, tutor) => {
                 if (err) throw err;
                 let update;
@@ -105,6 +112,7 @@ class chatHandler{
         return await User.findById(userid);
     }
 
+    // get other participant's userid
     async getotherid(convid, userid){
         try {
             var conv = await Conversation.findById(convid);

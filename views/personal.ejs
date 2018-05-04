@@ -7,6 +7,7 @@
     
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- render the theme based on identity -->
     <% if (user.identity == "student") { %>
         <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-green.css"> 
     <% } else { %>
@@ -31,7 +32,7 @@ body{
 <body>
 
 
-<div class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left" style="display:none" id="Menu">
+<div  style="font-size:1.3vw;" class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left" style="display:none" id="Menu">
       <button onclick="closeMenu()" class="w3-bar-item w3-button w3-large">&times;</button> 
       <a  href = "/personal" class="w3-bar-item w3-button w3-black "> <i>Personal Page</i></a>
     <a  href = "/update" class="w3-bar-item w3-button w3-black "><i> Update</i> </a>
@@ -40,7 +41,7 @@ body{
     <a  href = "/contactus" class="w3-bar-item w3-button w3-black "><i> Contact Us</i></a>
   </div>
 
-  <div id="main">
+  <div  style="font-size:1.3vw;" id="main">
 
 <div class="w3-black">
   <button id="openNav" class="w3-button w3-black w3-xlarge w3-left" onclick="openMenu()">&#9776;</button>
@@ -62,7 +63,7 @@ body{
 
 
 	<!--Get information from database-->
-<form action="/action_page.php" class="w3-container w3-card-4 w3-theme-l3 w3-text-blue w3-margin w3-padding-16">
+<form  style="font-size:1.3vw;" action="/action_page.php" class="w3-container w3-card-4 w3-theme-l3 w3-text-blue w3-margin w3-padding-16">
 
  		<h1 class="w3-center">Information</h1>
 
@@ -121,6 +122,7 @@ body{
   		<h2 style="text-shadow:1px 1px 0 #444">Expected price: <%= user.priceRequested %></h2>
 	</div>
   
+  <!-- display rating if user is a tutor -->
   <% if (user.identity == "tutor") { %>
   	<div class="w3-container w3-theme-d6">
   		<h2 style="text-shadow:1px 1px 0 #444">Rating: <%= user.rating == 0 ? "Not Available" : user.rating %></h2>

@@ -9,6 +9,7 @@ module.exports = function(passport) {
     passport.serializeUser(function(user, done){
         done(null, user.id);
     })
+    // given userid, return the details of user
     passport.deserializeUser(function(id, done) {
         User.findById(id, function(err, user) {
             console.log(user);
@@ -16,21 +17,25 @@ module.exports = function(passport) {
         });
     });
 
-    // function for signup
+    // function for register
     passport.use('local-signup', new LocalStrategy(
         {
             passReqToCallback: true
         },
         function(req, username, password, done){
+            // find if the username is used or not
             User.findOne({'username': username}, function(err,user){
+                    // error handling
                     if(err){
                         console.log("err");
                         return done(err);
                     }
+                    // if exist program would return false
                     if(user){
                         console.log("exist");
                         return done(null, false);
                     } else {
+                        // create a new user and save it
                         var newUser = new User();
                         newUser.username = username;
                         newUser.password = password;
@@ -56,6 +61,7 @@ module.exports = function(passport) {
             })
     );   
 
+    // login
     passport.use('local-login', new LocalStrategy({
         usernameField : 'username',
         passwordField : 'password',
@@ -64,19 +70,23 @@ module.exports = function(passport) {
     function(req, username, password, done){
         console.log("logging in");
         console.log(req.body);
+        // find by username in database
         User.findOne({'username': username}, function(err,user){
             if(err){
                 console.log("error");
                 return done(err);
             }
+            // if no such user in database
             if(!user){
                 console.log("no such user");
                 return done(null, false);
             }
+            // if the password does not match
             if(user.password != password){
                 console.log("wrong pwd");
                 return done(null, false);
             }
+            // success
             console.log("success");
             return done(null, user);
         })

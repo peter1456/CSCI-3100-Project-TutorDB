@@ -46,7 +46,7 @@ color:	#F5F5F5;
 <body>
 	
 
-	<div class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left" style="display:none" id="Menu">
+	<div style="font-size:1.3vw;"  class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left" style="display:none" id="Menu">
   		<button onclick="closeMenu()" class="w3-bar-item w3-button w3-large">&times;</button>	
       <a  href = "/" class="w3-bar-item w3-button w3-black "> <i>Home Page</i></a>
   		<a  href = "/personal" class="w3-bar-item w3-button w3-black "> <i>Personal Page</i></a>
@@ -56,7 +56,7 @@ color:	#F5F5F5;
 	 	<a  href = "/contactus" class="w3-bar-item w3-button w3-black "><i> Contact Us</i></a>
 	</div>
 
-<div id="main">
+<div  style="font-size:1.3vw;" id="main">
 
 <div class="w3-black">
   <button id="openNav" class="w3-button w3-black w3-xlarge w3-left" onclick="openMenu()">&#9776;</button>
@@ -94,6 +94,7 @@ color:	#F5F5F5;
 				<th>Chat</th>
       </tr>
     </thead>
+		<!-- render the table of results -->
     <% if (result.length == 0) { %>
 		<tr>
 			 <td rowspan="7"> No results found! </td>

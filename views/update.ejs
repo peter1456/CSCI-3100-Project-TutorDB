@@ -54,7 +54,7 @@ label {
 </head>
 <body>
 
-    <div class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left" style="display:none" id="Menu">
+    <div  style="font-size:1.3vw;" class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left" style="display:none" id="Menu">
         <button onclick="closeMenu()" class="w3-bar-item w3-button w3-large">&times;</button>   
         <a  href = "/" class="w3-bar-item w3-button w3-black "> <i>Home Page</i></a>       
         <a  href = "/personal" class="w3-bar-item w3-button w3-black "> <i>Personal Page</i></a>
@@ -64,7 +64,7 @@ label {
         <a  href = "/contactus" class="w3-bar-item w3-button w3-black "><i> Contact Us</i></a>
     </div>
 
-    <div id="main">
+    <div style="font-size:1.3vw;" id="main">
 
 <div class="w3-black">
   <button id="openNav" class="w3-button w3-black w3-xlarge w3-left" onclick="openMenu()">&#9776;</button>
@@ -85,7 +85,7 @@ label {
 </div>
 
 
-    <form action = "/update" method = "POST" class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
+    <form  style="font-size:1.3vw;" action = "/update" method = "POST" class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
 
 
 
@@ -229,8 +229,9 @@ label {
 
 </body>
 <script>
+
 $(document).ready(() => {
-    // initializing
+    // initializing the contents, check the boxes according to the user details passed to view engine
     $('[value="<%= user.region[0] %>"]').attr("selected","selected");
     $('[value="<%= user.educationLevel %>"]').attr("selected","selected");
     <% for (var i = 0; i < user.subject.length; i++){ %> 
@@ -241,15 +242,14 @@ $(document).ready(() => {
     <% } %>
     $('#priceSlider').val(<%= user.priceRequested %>);
     $('#price').html($('#priceSlider').val());
-
 });
     // Display the value of slider 
-
     $("#priceSlider").on("change", function(){
         $("#price").html($("#priceSlider").val());
     })
 
-$("#oldPassword").on("change", function(){
+    // Disable the submit button if old password is not typed
+    $("#oldPassword").on("change", function(){
       if($("#oldPassword").val().length > 0)
         document.getElementById('submit').disabled = false;
     else

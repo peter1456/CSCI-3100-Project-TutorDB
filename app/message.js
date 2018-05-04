@@ -1,4 +1,4 @@
-// definition of messages
+// definition of messages in database
 var mongoose = require('mongoose');
 var User = require('./user');
 

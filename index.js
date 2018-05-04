@@ -28,13 +28,13 @@ app.use(session); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // login sessions
 
-var User = require(__dirname + '/user.js')
+var User = require(__dirname + '/app/user.js')
 
 // load the passport for configuration
-require(__dirname + "/passport.js")(passport);
+require(__dirname + "/app/passport.js")(passport);
 
 // load the routes           
-require(__dirname + "/routes.js")(app, passport, User); 
+require(__dirname + "/app/routes.js")(app, passport, User); 
 
 
 
@@ -46,7 +46,7 @@ io.use(sharedsession(session), {
     autoSave: false
 });
 // load socket actions
-require(__dirname + "/socket.js")(io); 
+require(__dirname + "/app/socket.js")(io); 
 
 http.listen(3000, function(){
     console.log('listening on *:3000');

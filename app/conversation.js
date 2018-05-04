@@ -4,10 +4,11 @@ var User = require('./user');
 var Message = require('./message');
 
 var ConversationSchema = mongoose.Schema({
+    // Number of 
     participants: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
     latestMessage: {type: mongoose.Schema.Types.ObjectId, ref: 'Message'},
     Accepted: [String],
-    Rated: {type: boolean, default: false}
+    Rated: {type: Boolean, default: false}
 },
 {
     timestamps: true

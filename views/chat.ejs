@@ -225,7 +225,7 @@ a:hover, a:active, a:focus {
 </head>
 <body>
 
-<div class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left" style="display:none" id="Menu">
+<div style="font-size:1.5vw;" class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left" style="display:none" id="Menu">
       <button onclick="closeMenu()" class="w3-bar-item w3-button w3-large">&times;</button> 
        <a  href = "/" class="w3-bar-item w3-button w3-black "> <i>Home Page</i></a>    
       <a  href = "/personal" class="w3-bar-item w3-button w3-black "> <i>Personal Page</i></a>
@@ -237,7 +237,7 @@ a:hover, a:active, a:focus {
 
 <div id="main">
 
-<div class="w3-black">
+<div style="font-size:1.5vw;"  class="w3-black">
   <button id="openNav" class="w3-button w3-black w3-xlarge w3-left" onclick="openMenu()">&#9776;</button>
     <a  href = "/logout" class="w3-bar-item w3-button w3-black w3-round-large" style = "float: right"> <i>Logout</i></a>
   <div class="w3-container">
@@ -256,13 +256,12 @@ a:hover, a:active, a:focus {
 </div>
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container bootstrap snippet">
+<div style="font-size:1.5vw;"  class="container bootstrap snippet">
     <div class="row" >
 		<div class="col-md-4 bg-white " style="width: 50%; height:530px; overflow:auto;float: left;">
             <div class=" row border-bottom padding-sm" style="height: 40px;">
-            	Member
+
             </div>
-            
             <!-- =============================================================== -->
             <!-- member list -->
             <ul class="friend-list">
@@ -326,36 +325,42 @@ var socket = io(); // connecting to server
     var message;
     var rooms;
 
+    // rate function 
     $('#rate').on('click', () => {
         closeRightMenu();
-        $('#rateMenu').prop('disabled', true);
-        socket.emit('rate', $('input[name="rate"]:checked').val());
+        $('#rateMenu').prop('disabled', true); // disable the rate menu after checked 
+        socket.emit('rate', $('input[name="rate"]:checked').val()); // emit the rate signal with rating to server 
     });
 
+    // accept 
     $('#accept').on('click', () => {
-      $('#accept').prop('disabled', true);
-      socket.emit('accept');
+      $('#accept').prop('disabled', true); // disable the accept button
+      socket.emit('accept'); // emit the accpet signal 
     });
 
+    // send message 
     $("#send").on('click', () => {
       console.log('clicked');
-      if($('#message').val() != ''){
+      if($('#message').val() != ''){ // send only when the message is nonempty
           let message = {msgcontent: $("#message").val(), author: userid};
-          socket.emit('message', message);
-          $('#message').val('');
+          socket.emit('message', message); // emit the message to server 
+          $('#message').val(''); // clear the input field 
       }
     });
 
+    // Initialize 
     socket.on('Init', (data) => {
       userid = data.userid;
       roomid = data.roomid;
       userData = data.userData;
     })
 
+    // requiring update 
 		socket.on('needUpdate', () => {
 			socket.emit('reqUpdate');
 		});
 
+    // update the list of chats 
 		socket.on('newSummary', (Summary) => {
 			$(".friend-list").empty(); // clear the friend list
       rooms = Summary;
@@ -363,6 +368,7 @@ var socket = io(); // connecting to server
         console.log(conv);
         let rcvpos = (conv.participants[0]._id == userid) ? 1 : 0; 
 				if (conv.latestMessage.msgcontent != "" || conv.latestMessage.author == userid){
+          // render with jquery
           $(".friend-list").append(
             '<li id="' + conv._id + '" ' + (roomid == conv._id ? ' class="active bounceInDown" ': '') + '>' + 
                 	'<a onclick = "changeroom(' + "'" + conv._id + "'" + ')" class="clearfix">' + 
@@ -377,6 +383,7 @@ var socket = io(); // connecting to server
 			});
     });
     
+    // rendering the messages in conversation
     socket.on('newConversation', (conv) => {
       $("#chat-list").empty();
       for (var i = 0; i < conv.length; i++) {
@@ -384,11 +391,13 @@ var socket = io(); // connecting to server
       }
     });
 
+    // adding message 
 		socket.on('message', (msg) => {
 			addMessage(msg);
     });
-
-    socket.on('setButtons' () => {
+    
+    // disable and enable the button based on chat's property
+    socket.on('setButtons', () => {
       newConv = rooms.find((conv) => {return conv._id == roomid});
         if (canRate(newConv)){
           $('#rateMenu').prop('disabled', false);
@@ -402,14 +411,17 @@ var socket = io(); // connecting to server
         }
     })
     
+    // helper function to determine can rate or not (need to be a student and both users agree on the job)
     function canRate(conv){
-      return (!conv.Rated && conv.Accepted.length == 2 && user.identity == "student") ? true : false;
+      return (!conv.Rated && conv.Accepted.length == 2 && userData.identity == "student") ? true : false; 
     }
 
+    // helper function to determine can accept or not 
     function canAccept(conv){
       return conv.Accepted.find((id) => {return id == userid}) == undefined ? true : false;
     }
 
+    // append the message in the chat room
     function addMessage(msg) {
       if (msg.content != ''){
       $("#chat-list").append(
@@ -426,14 +438,18 @@ var socket = io(); // connecting to server
       }
     }
 
+    // changing chat room
     function changeroom(newroomid){
       console.log('room change!');
       if(newroomid != roomid) {
+        // change the highlight 
         $('[id="'+roomid+'"]').removeClass("active BounceInDown");
         $('[id="'+newroomid+'"]').addClass("active BounceInDown");
+        // tell the server to change the room
         socket.emit('roomchange', newroomid);
         roomid = newroomid;
         newConv = rooms.find((conv) => {return conv._id == roomid});
+        // update the buttons
         if (canRate(newConv)){
           $('#rateMenu').prop('disabled', false);
         } else {
